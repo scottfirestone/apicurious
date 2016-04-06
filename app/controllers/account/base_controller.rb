@@ -4,6 +4,7 @@ class Account::BaseController < ApplicationController
 
   def show
     @user = current_user
+    @playlists = @user.playlists
   end
 
 private
