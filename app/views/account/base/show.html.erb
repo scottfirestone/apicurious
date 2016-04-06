@@ -43,15 +43,19 @@
             <div class="col-md-12 lead"><%= @user.nickname %>'s Playlists<hr></div>
           </div>
           <% @playlists.each do |playlist| %>
+            <br>
             <div class="row">
   			      <div class="col-md-4 text-center">
-                <img class="img-circle avatar avatar-original" style="-webkit-user-select:none;
-                display:block; margin:auto;" src="<%= playlist[:image] %>"/>
+                <img class="img-square avatar avatar-original playlist-pic" style="-webkit-user-select:none;
+                display:block; margin:auto;" src="<%= playlist[:images] %>"/>
               </div>
               <div class="col-md-8">
                 <div class="row">
                   <div class="col-md-12">
                     <h1 class="only-bottom-margin"><%= link_to playlist[:name], "#{playlist[:ext_url]}" %></h1>
+                    <p>
+                      Total tracks: <%= playlist[:tracks][:total] %>
+                    </p>
                   </div>
                 </div>
               </div>

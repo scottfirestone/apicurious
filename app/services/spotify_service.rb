@@ -15,13 +15,15 @@ class SpotifyService
     end.body
 
     parsed = JSON.parse(response_body, symbolize_names: true)
-
     parsed[:items].map do |playlist|
       {
         :name => playlist[:name],
         :ext_url => playlist[:external_urls][:spotify],
-        :images => playlist[:images],
-        :id => playlist[:id]
+        :images => playlist[:images].first[:url],
+        :id => playlist[:id],
+        :owner => playlist[:owner][:id],
+        :public => playlist[:public],
+        :tracks => playlist[:tracks]
       }
     end
   end
