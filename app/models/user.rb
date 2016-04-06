@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
       new_user.refresh_token = auth_info[:credentials][:refresh_token]
     end
   end
+
+  def playlists
+    SpotifyService.new.user_playlists(self)
+  end
 end
