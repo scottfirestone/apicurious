@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
     if user = User.from_omniauth(request.env["omniauth.auth"])
       session[:uid] = user.uid
     end
-    user.get_new_token
-    redirect_to account_base_path(user)
+    user.update_token
+    redirect_to account_base_path(user.uid)
   end
 
   def destroy
