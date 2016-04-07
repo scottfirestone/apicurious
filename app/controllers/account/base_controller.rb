@@ -7,11 +7,7 @@ class Account::BaseController < ApplicationController
     @playlists = @user.playlists
   end
 
-private
-
-  def check_current_user
-    if @current_user == nil
-      redirect_to root_path
-    end
+  def unfollow_playlist
+    @user.unfollow_user_playlist
   end
 end

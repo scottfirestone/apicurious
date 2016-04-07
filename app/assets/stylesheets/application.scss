@@ -10,10 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- 
- 
+
+
  */
 
+ #navbar {
+   background-color: black;
+   text-decoration-color: white;
+ }
+
+ .playlist-pic {
+   height: 200px;
+   width: 200px;
+ }
 
 @import "bootstrap-sprockets";
 @import "bootstrap";

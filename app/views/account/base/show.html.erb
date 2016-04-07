@@ -56,6 +56,9 @@
                     <p>
                       Total tracks: <%= playlist[:tracks][:total] %>
                     </p>
+                    <% if playlist[:owner] != @user.nickname %>
+                      <%= button_to "Unfollow Playlist", playlist_path(playlist[:id]), method: "delete" %>
+                    <% end %>
                   </div>
                 </div>
               </div>

@@ -9,12 +9,12 @@ class SpotifyService
   end
 
   def user_playlists(user)
-    response_body = connection.get do |req|
+    response = connection.get do |req|
       req.url 'me/playlists'
       req.headers['Authorization'] = "Bearer #{user.token}"
-    end.body
+    end
 
-    parsed = JSON.parse(response_body, symbolize_names: true)
+    parsed = JSON.parse(response.body, symbolize_names: true)
     parsed[:items].map do |playlist|
       {
         :name => playlist[:name],
@@ -25,6 +25,13 @@ class SpotifyService
         :public => playlist[:public],
         :tracks => playlist[:tracks]
       }
+    end
+  end
+
+  def unfollow_playlist(user, playlist_id)
+    a = connection.delete do |req|
+      req.url "users/#{user.uid}/playlists/#{playlist_id}/followers"
+      req.headers['Authorization'] = "Bearer #{user.token}"
     end
   end
 end
