@@ -15,8 +15,8 @@ module Authentication
         image: "https://robohash.org/#{("a".."z").to_a.shuffle.slice(0..5).join}"
       },
       credentials: {
-        token: SPOTIFY_CLIENT_ID,
-        refresh_token: SPOTIFY_CLIENT_SECRET
+        token: "token",
+        refresh_token: "refreshtoken"
       }
     })
   end

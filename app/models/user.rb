@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   end
 
   def playlists
-    SpotifyService.new.user_playlists(self)
+    SpotifyService.new.fetch_user_playlists(self)
   end
 
   def unfollow_playlist(playlist_id)

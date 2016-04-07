@@ -8,24 +8,16 @@ class SpotifyService
     end
   end
 
-  def user_playlists(user)
+  def fetch_user_playlists(user)
     response = connection.get do |req|
       req.url 'me/playlists'
       req.headers['Authorization'] = "Bearer #{user.token}"
     end
 
     parsed = JSON.parse(response.body, symbolize_names: true)
-    parsed[:items].map do |playlist|
-      {
-        :name => playlist[:name],
-        :ext_url => playlist[:external_urls][:spotify],
-        :images => playlist[:images].first[:url],
-        :id => playlist[:id],
-        :owner => playlist[:owner][:id],
-        :public => playlist[:public],
-        :tracks => playlist[:tracks]
-      }
-    end
+    parsed[:items].map { |params|
+      Playlist.new(params)
+    }
   end
 
   def unfollow_playlist(user, playlist_id)
