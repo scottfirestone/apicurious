@@ -18,10 +18,4 @@ class Playlist
     @track_count = params[:tracks][:total]
     @track_href = params[:tracks][:href]
   end
-
-  def self.find_by(params)
-    service = SpotifyService.new
-    new(service.playlist(params))
-  end
-
 end

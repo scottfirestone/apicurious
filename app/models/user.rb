@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   def self.from_omniauth(auth_info)
-    binding.pry
-    where(uid: auth_info[:uid]).first_or_create do |new_user|
+    where(uid: auth_info[:uid]).create do |new_user|
       new_user.uid           = auth_info.uid
       new_user.name          = auth_info[:info][:name]
       new_user.nickname      = auth_info[:info][:nickname]
@@ -13,8 +12,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_new_token
+    new_token = SpotifyService.new.refresh_token(self)
+    update(token: new_token)
+  end
+
   def playlists
-    SpotifyService.new.fetch_user_playlists(self)
+    SpotifyService.new.fetch_user_playlists(token)
   end
 
   def unfollow_playlist(playlist_id)
