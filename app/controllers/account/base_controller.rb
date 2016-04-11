@@ -1,13 +1,17 @@
 class Account::BaseController < ApplicationController
-  before_action :current_user
-  before_action :check_current_user
+  before_action :require_correct_user
 
   def show
-    @user = current_user
+    @user = SpotifyUser.new(current_user)
+  
     @playlists = @user.playlists
   end
 
   def unfollow_playlist
     @user.unfollow_user_playlist
+  end
+
+  def require_correct_user
+    render file: "/public/404" unless current_user == User.find_by(uid: params[:id])
   end
 end

@@ -53,9 +53,11 @@
                 <div class="row">
                   <div class="col-md-12">
                     <h1 class="only-bottom-margin"><%= link_to playlist.name, "#{playlist.ext_url}" %></h1>
-                    <p>
-                      Total tracks: <%= playlist.track_count %>
-                    </p>
+                      <div class="track-count">
+                        <p>
+                          Total tracks: <%= playlist.track_count %>
+                        </p>
+                      </div>
                     <% if playlist.owner != @user.nickname %>
                       <%= button_to "Unfollow Playlist", playlist_path(playlist.id), method: "delete" %>
                     <% end %>

@@ -11,19 +11,12 @@ class User < ActiveRecord::Base
       new_user.image         = auth_info[:info][:image]
       new_user.token         = auth_info[:credentials][:token]
       new_user.refresh_token = auth_info[:credentials][:refresh_token]
+      new_user.token_expiry  = auth_info[:credentials][:expires_at]
     end
   end
 
   def update_token
     new_token = SpotifyService.new.request_new_token(self)
     update_attribute(:token, new_token)
-  end
-
-  def playlists
-    SpotifyService.new.fetch_user_playlists(token)
-  end
-
-  def unfollow_playlist(playlist_id)
-    SpotifyService.new.unfollow_playlist(self, playlist_id)
   end
 end

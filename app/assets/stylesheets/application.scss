@@ -13,12 +13,22 @@
 
 
  */
+ html {
+   background-image: image-url("vinyl.jpg");
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+ }
 
  #navbar {
    background-color: black;
    text-decoration-color: white;
  }
 
+.track-count{
+  vertical-align: bottom;
+}
  .playlist-pic {
    height: 200px;
    width: 200px;

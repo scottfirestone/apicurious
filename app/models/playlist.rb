@@ -18,4 +18,12 @@ class Playlist
     @track_count = params[:tracks][:total]
     @track_href = params[:tracks][:href]
   end
+
+  def self.find_all_for_current_user(user)
+    service = SpotifyService.new
+    binding.pry
+    service.current_user_playlists(user).map { |raw_playlist|
+      Playlist.new(raw_playlist)
+    }
+  end
 end
