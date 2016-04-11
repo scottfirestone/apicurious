@@ -19,11 +19,17 @@ class Playlist
     @track_href = params[:tracks][:href]
   end
 
+  def self.find(id)
+    service.current_user_playlist()
+  end
+
   def self.find_all_for_current_user(user)
-    service = SpotifyService.new
-    binding.pry
-    service.current_user_playlists(user).map { |raw_playlist|
+    SpotifyService.new.current_user_playlists(user).map { |raw_playlist|
       Playlist.new(raw_playlist)
     }
+  end
+
+  def self.unfollow(user, playlist_id, playlist_owner)
+    SpotifyService.new.unfollow_playlist(user, playlist_id, playlist_owner)
   end
 end

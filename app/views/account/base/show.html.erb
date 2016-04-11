@@ -59,7 +59,7 @@
                         </p>
                       </div>
                     <% if playlist.owner != @user.nickname %>
-                      <%= button_to "Unfollow Playlist", playlist_path(playlist.id), method: "delete" %>
+                      <%= button_to "Unfollow Playlist", playlist_path([playlist.id, playlist.owner]), method: "delete" %>
                     <% end %>
                   </div>
                 </div>
