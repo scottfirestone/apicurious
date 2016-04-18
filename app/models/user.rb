@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def update_token
-    new_token = SpotifyService.new.request_new_token(self)
+    new_token = SpotifyService.new.request_new_token(self)[:access_token]
     update_attribute(:token, new_token)
   end
 end

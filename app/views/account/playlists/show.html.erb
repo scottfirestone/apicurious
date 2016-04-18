@@ -1,0 +1,51 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <br>
+          <div class="row">
+			      <div class="col-md-4 text-center">
+              <img class="img-square avatar avatar-original playlist-pic" style="-webkit-user-select:none;
+              display:block; margin:auto;" src="<%= @playlist.images %>"/>
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="only-bottom-margin"><%= link_to @playlist.name, "#{@playlist.ext_url}" %></h1>
+                  <div class="track-count">
+                    <p>
+                      Total tracks: <%= @playlist.track_count %>
+                    </p>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Track</th>
+                          <th>Title</th>
+                          <th>Artist</th>
+                          <th>Remove Track</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @playlist_tracks.each.with_index do |track, i| %>
+                          <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= track.title %></td>
+                            <td><%= track.artist %></td>
+                            <%= binding.pry %>
+                            <td><%= link_to "Delete", account_playlist_track_path([@playlist.id, track]), method: "delete",  :data => { :confirm => "Are you sure you want to remove track #{track.title} from Playlist '#{playlist.name}'?" } %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

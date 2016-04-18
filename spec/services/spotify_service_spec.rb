@@ -3,11 +3,12 @@ require "rails_helper"
 describe SpotifyService do
   context "#userinfo" do
     it "returns spotify user info" do
-      VCR.use_cassette("spotify_service#user_info") do
+      VCR.use_cassette("spotify_service#user_playlists") do
         service = SpotifyService.new
-        denver_coordinates = { lat: 39.849312, long: -104.673828 }
 
-        weather = service.weather(denver_coordinates)
+        user = SpotifyUser.new(User.create(token: ENV["USER_TOKEN"]))
+
+        playlists = service.current_user_playlists(user)
 
         expect(weather[:timezone]).to eq("America/Denver")
         expect(weather[:currently][:summary]).to eq("Partly Cloudy")

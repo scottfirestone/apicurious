@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   namespace :account do
     resources :base, only: [:show]
+    resources :playlists do
+      resources :tracks, only: [:destroy]
+    end
   end
 
-  resources :playlists, only: [:destroy]
 end

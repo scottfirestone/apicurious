@@ -10,10 +10,11 @@ class SpotifyService
 
   def current_user_playlists(user)
     response = connection.get do |req|
-      req.url 'v1/me/playlists'
       req.headers['Authorization'] = "Bearer #{user.token}"
+      req.url 'v1/me/playlists'
     end
     parse(response)[:items]
+    
   end
 
   def unfollow_playlist(user, playlist_id, playlist_owner)
@@ -21,7 +22,23 @@ class SpotifyService
       req.headers['Authorization'] = "Bearer #{user.token}"
       req.url "v1/users/#{playlist_owner}/playlists/#{playlist_id}/followers/"
     end
-    binding.pry
+  end
+
+  def find_playlist(user, playlist_id)
+    response = connection.get do |req|
+      req.headers['Authorization'] = "Bearer #{user.token}"
+      req.url "v1/users/#{user.uid}/playlists/#{playlist_id}"
+    end
+    parse(response)
+  end
+
+  def playlist_tracks(user, playlist_id)
+    response = connection.get do |req|
+      req.headers['Authorization'] = "Bearer #{user.token}"
+      req.url "v1/users/#{user.uid}/playlists/#{playlist_id}/tracks"
+    end
+    parse(response)[:items]
+
   end
 
   def request_new_token(user)
@@ -31,7 +48,16 @@ class SpotifyService
       req.headers['Authorization'] = "Basic #{encoded_auth}"
       req.body = hash
     end
-    parse(response)[:access_token]
+    parse(response)
+  end
+
+  def create_new_playlist(user, playlist_name)
+    req_body = { name: "#{playlist_name}" }.to_json
+    response = connection.post do |req|
+      req.headers['Authorization'] = "Bearer #{user.token}"
+      req.url "v1/users/#{user.uid}/playlists"
+      req.body = req_body
+    end
   end
 
   private

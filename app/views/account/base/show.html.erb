@@ -52,15 +52,14 @@
               <div class="col-md-8">
                 <div class="row">
                   <div class="col-md-12">
-                    <h1 class="only-bottom-margin"><%= link_to playlist.name, "#{playlist.ext_url}" %></h1>
+                    <h1 class="only-bottom-margin"><%= link_to playlist.name, account_playlist_path(playlist.id) %></h1>
                       <div class="track-count">
                         <p>
                           Total tracks: <%= playlist.track_count %>
                         </p>
                       </div>
-                    <% if playlist.owner != @user.nickname %>
-                      <%= button_to "Unfollow Playlist", playlist_path([playlist.id, playlist.owner]), method: "delete" %>
-                    <% end %>
+                      <%= link_to "View", account_playlist_path(playlist.id) %>
+                      <%= link_to "Unfollow", account_playlist_path([playlist.id, playlist.owner]), method: "delete",  :data => { :confirm => "Are you sure you want to unfollow Playlist '#{playlist.name}'?" } %>
                   </div>
                 </div>
               </div>

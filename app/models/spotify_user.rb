@@ -9,6 +9,14 @@ class SpotifyUser < SimpleDelegator
     update_attribute(:token, new_token)
   end
 
+  def create_new_playlist(playlist_name)
+    Playlist.create_new_playlist(self, playlist_name)
+  end
+
+  def find_playlist(playlist_id)
+    Playlist.find(self, playlist_id)
+  end
+
   def playlists
     Playlist.find_all_for_current_user(self)
   end
