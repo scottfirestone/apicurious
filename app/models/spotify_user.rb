@@ -25,6 +25,10 @@ class SpotifyUser < SimpleDelegator
     Playlist.unfollow(self, playlist_id, playlist_owner)
   end
 
+  def remove_track_from_playlist(playlist_id, track_uri)
+    Playlist.remove_track(self, playlist_id, track_uri)
+  end
+
   private
 
     def user

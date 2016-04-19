@@ -33,8 +33,7 @@
                             <td><%= i+1 %></td>
                             <td><%= track.title %></td>
                             <td><%= track.artist %></td>
-                            <%= binding.pry %>
-                            <td><%= link_to "Delete", account_playlist_track_path([@playlist.id, track]), method: "delete",  :data => { :confirm => "Are you sure you want to remove track #{track.title} from Playlist '#{playlist.name}'?" } %></td>
+                            <td><%= link_to "Delete", account_playlist_track_path(uri: track.uri, playlist_id: @playlist.id), method: "delete",  :data => { :confirm => "Are you sure you want to remove track #{track.title} from Playlist '#{@playlist.name}'?" } %></td>
                           </tr>
                         <% end %>
                       </tbody>

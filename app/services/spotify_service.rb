@@ -14,7 +14,7 @@ class SpotifyService
       req.url 'v1/me/playlists'
     end
     parse(response)[:items]
-    
+
   end
 
   def unfollow_playlist(user, playlist_id, playlist_owner)
@@ -58,6 +58,16 @@ class SpotifyService
       req.url "v1/users/#{user.uid}/playlists"
       req.body = req_body
     end
+  end
+
+  def remove_track(user, playlist_id, track_uri)
+    req_body = { tracks: [{ uri: "#{track_uri}" }] }.to_json
+    response = connection.delete do |req|
+      req.headers['Authorization'] = "Bearer #{user.token}"
+      req.url "v1/users/#{user.id}/playlists/#{playlist_id}/tracks"
+      req.body = req_body
+    end
+    binding.pry
   end
 
   private

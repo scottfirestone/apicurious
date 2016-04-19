@@ -25,7 +25,6 @@ class Playlist
   end
 
   def self.find_all_for_current_user(user)
-binding.pry
     SpotifyService.new.current_user_playlists(user).map { |raw_playlist|
       Playlist.new(raw_playlist)
     }
@@ -43,6 +42,10 @@ binding.pry
     SpotifyService.new.playlist_tracks(user, playlist_id).map { |raw_track|
         PlaylistTrack.new(raw_track)
     }
+  end
+
+  def self.remove_track(user, playlist_id, track_uri)
+    SpotifyService.new.remove_track(user, playlist_id, track_uri)
   end
 
   private
